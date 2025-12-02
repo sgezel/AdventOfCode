@@ -36,34 +36,39 @@ namespace _2025.Day2
                     {
                         Console.WriteLine($"checking {i}");
 
-                        bool valid = true;
+                        bool count = false;
 
                         for (int j = 1; j <= strLen / 2; j++)
                         {
                             string part = i.ToString()[..j];
 
-                            if ((strLen - part.Length) % j == 0)
+                            if (strLen % j == 0)
                             {
-                                for (var k = j; k < strLen - part.Length; k += j)
+                                int numChunks = strLen / j;
+                                
+                                for(int chunk = 0; chunk < numChunks ; chunk++)
                                 {
-                                    var partToCheck = i.ToString().Substring(k, j);
+                                    string stringToCheck = i.ToString().Substring(chunk * j, j);
 
-
-                                    if (!part.Equals(partToCheck))
+                                    if (!stringToCheck.Equals(part))
                                     {
-                                        valid = false;
+                                        count =false;
                                         break;
                                     }
+                                    else
+                                        count = true;
                                 }
+
                             }
 
-                            if(!valid)
+                            if(count)
                                 break;
                         }
 
-                        if (valid)
-                            Console.WriteLine(i + " is valid");
-                        
+                        if(count)
+                            answer+=i;
+
+
                     }
                 }
             }
