@@ -30,44 +30,55 @@ namespace _2025.Day1
             foreach (string input in _inputs)
             {
                 int direction = 1;
-                int realSteps= 0;
 
                 if (input[..1].Equals("L", StringComparison.CurrentCultureIgnoreCase))
                     direction = -1;
 
                 int steps = Convert.ToInt32(input[1..]);
 
-                answer += Math.Abs(steps) / MAX;
-
-                //if (direction == -1 && Math.Abs(steps) > current)
-                //    answer += 1 + Math.Abs(steps) / MAX;
-
-                realSteps = steps * direction + current;
-                steps = (steps % MAX) * direction;
-
-                Console.WriteLine($"Current: {current}, input: {input}, steps: {steps}");
-
-                current += steps;
-
-                if (current < 0)
-                    current = MAX + current;
-
-                if (current > MAX)
+                if (direction == 1)
                 {
-                    
-                    current %= MAX;
+                    for (int i = 0; i < steps; i++)
+                    {
+                        current++;
+
+                        if (current == MAX)
+                            current = 0;
+
+                        if (current == 0)
+                            Console.WriteLine($">>> {current} <<<");
+                        else 
+                            Console.WriteLine($"{current}");
+
+
+                        if (current == 0)
+                            answer++;
+                    }
                 }
 
-                if (current == 0 || current == 100)
-                    answer++;
+                if (direction == -1)
+                {
+                    for (int i = 0; i < steps; i++)
+                    {
+                        current--;
 
-                Console.WriteLine($"So current is: {current}, answer is {answer}");
+                        if (current < 0)
+                            current = MAX - 1;
 
+                         if (current == 0)
+                            Console.WriteLine($">>> {current} <<<");
+                        else 
+                            Console.WriteLine($"{current}");
+
+                        if (current == 0)
+                            answer++;
+                    }
+                }
+
+                Console.WriteLine("---");
             }
 
-                Console.WriteLine($"My final answer is {answer}");
-
-            //6223
+            Console.WriteLine($"My final answer is {answer}");
         }
 
         public void ReadInput()
